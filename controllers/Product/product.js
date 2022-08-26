@@ -1,34 +1,71 @@
+const database = require('../../db/models/');
 //GET '/product'
-const getAllProducts = (req, res, next) => {
-    res.json({message: "GET all Products"});
-};
-
-//POST '/product'
-const newProduct = (req, res, next) => {
-    res.json({message: "POST new Product"});
-};
-
-//DELETE '/products'
-const deleteAllProducts = (req, res, next) => {
-    res.json({message: "DELETE all Products"});
+export const getAllProducts = async (req, res) => {
+    try {
+        const product = await Product.findAll();
+        res.send(product);
+    } catch (err) {
+        console.log(err)
+    }
 };
 
 //GET '/product/:name'
-const getOneProduct = (req, res, next) => {
-    res.json({message: "GET 1 Product"});
+export const getProductById = async (req, res) => {
+    try {
+        const product = await Product.findAll({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.send(product[0]);
+    } catch (err) {
+        console.log(err);
+    }
 };
+
+
+//POST '/product'
+export const createProduct = async (req, res) => {
+    try {
+        await Product.create(req.body);
+        res.json({
+            "message":"Product Created"
+        });
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+// Update product by id
+export const updateProduct = async (req, res) => {
+    try {
+        await Product.update(req.body, {
+            where: {
+                id: req.params.id
+            }
+        });
+        res.json({
+            "message": "Product Updated"
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}
 
 
 //DELETE '/product/:name'
-const deleteOneProduct = (req, res, next) => {
-    res.json({message: "DELETE 1 Product"});
-};
+export const deleteProductById = async (req, res) => {
+    try {
+        await Product.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+        res.json({
+            "message": "Product Deleted"
+        });
+    } catch (err) {
+        console.log(err);
+    }
+}
 
-//export controller functions
-module.exports = {
-    getAllProducts, 
-    newProduct,
-    deleteAllProducts,
-    getOneProduct,
-    deleteOneProduct
-};

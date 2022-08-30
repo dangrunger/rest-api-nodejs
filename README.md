@@ -1,6 +1,6 @@
 ## Template for {Rest Api Nodejs w/ sequelize}
 
-working on it pick
+working on it
 
 be patient 🧘‍♂️
 

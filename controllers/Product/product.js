@@ -1,8 +1,8 @@
-const database = require('../../db/models/');
+const product = require('../../db/models/product');
 //GET '/product'
-export const getAllProducts = async (req, res) => {
+const getAllProducts = async (req, res) => {
     try {
-        const product = await Product.findAll();
+        const product = await product.findAll();
         res.send(product);
     } catch (err) {
         console.log(err)
@@ -10,9 +10,9 @@ export const getAllProducts = async (req, res) => {
 };
 
 //GET '/product/:name'
-export const getProductById = async (req, res) => {
+const getProductById = async (req, res) => {
     try {
-        const product = await Product.findAll({
+        const product = await product.findAll({
             where: {
                 id: req.params.id
             }
@@ -25,9 +25,9 @@ export const getProductById = async (req, res) => {
 
 
 //POST '/product'
-export const createProduct = async (req, res) => {
+const createProduct = async (req, res) => {
     try {
-        await Product.create(req.body);
+        await product.create(req.body);
         res.json({
             "message":"Product Created"
         });
@@ -36,10 +36,9 @@ export const createProduct = async (req, res) => {
     }
 };
 
-// Update product by id
-export const updateProduct = async (req, res) => {
+const updateProduct = async (req, res) => {
     try {
-        await Product.update(req.body, {
+        await product.update(req.body, {
             where: {
                 id: req.params.id
             }
@@ -54,9 +53,9 @@ export const updateProduct = async (req, res) => {
 
 
 //DELETE '/product/:name'
-export const deleteProductById = async (req, res) => {
+const deleteProductById = async (req, res) => {
     try {
-        await Product.destroy({
+        await product.destroy({
             where: {
                 id: req.params.id
             }
@@ -69,3 +68,10 @@ export const deleteProductById = async (req, res) => {
     }
 }
 
+module.export = { 
+    getAllProducts,
+    getProductById,
+    createProduct,
+    updateProduct,
+    deleteProductById
+};
